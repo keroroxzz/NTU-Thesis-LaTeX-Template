@@ -41,7 +41,7 @@
 
 % 變數: 中文翻譯
 % Variables: Translation (Chinese)
-\newcommand{\ntu@verificationletter@zh}{口試委員審定書}
+\newcommand{\ntu@verificationletter@zh}{口試委員會審定書}
 \newcommand{\ntu@tableofcontents@zh}{目錄}
 \newcommand{\ntu@listoffigures@zh}{圖目錄}
 \newcommand{\ntu@listoftables@zh}{表目錄}
@@ -52,8 +52,6 @@
 \newcommand{\ntu@keyword@zh}{關鍵字：}
 \newcommand{\ntu@kwsymbol@zh}{、}
 \newcommand{\ntu@appendix@zh}{附錄}
-\newcommand{\ntu@figurename@zh}{圖}
-\newcommand{\ntu@tablename@zh}{表}
 
 \newcommand{\ntu@titlechapter@zh}{第\CJKnumber{\thechapter}章}
 \newcommand{\ntu@titlechaptertoc@zh}{第\CJKnumber{\thecontentslabel}章}
@@ -66,13 +64,11 @@
 \newcommand{\ntu@listoftables@en}{List of Tables}
 \newcommand{\ntu@denotation@en}{Denotation}
 \newcommand{\ntu@bibliography@en}{References}
-\newcommand{\ntu@acknowledgement@en}{Acknowledgements}
+\newcommand{\ntu@acknowledgement@en}{致謝}
 \newcommand{\ntu@abstract@en}{Abstract}
 \newcommand{\ntu@keyword@en}{Keywords:~}
 \newcommand{\ntu@kwsymbol@en}{,~}
 \newcommand{\ntu@appendix@en}{Appendix}
-\newcommand{\ntu@figurename@en}{Figure}
-\newcommand{\ntu@tablename@en}{Table}
 
 \newcommand{\ntu@titlechapter@en}{Chapter~\thechapter}
 \newcommand{\ntu@titlechaptertoc@en}{Chapter~\thecontentslabel}
@@ -221,8 +217,7 @@
 \newcommand\ntu@date@zh@short[3]{\zhdigits{#1}年\zhnumber{#2}月}
 \newcommand\ntu@date@zh@digit[3]{\the\numexpr#1-1911\relax~年~\number#2~月~\number#3~日}
 \newcommand\ntu@date@zh@digit@short[3]{\the\numexpr#1-1911\relax~年~\number#2~月}
-\newcommand\ntu@date@en@short[3]{\monthname[#2], #1}  % 英文月年之間無逗號
-\newcommand\ntu@date@en@short[3]{\monthname[#2] #1}   % 英文月年之間有逗號
+\newcommand\ntu@date@en@short[3]{\monthname[#2] #1}
 
 \newcommand{\ntu@setgeometry}[1]{\expandafter\newgeometry\expandafter{#1}}
 
@@ -355,7 +350,7 @@
 % --------------------------------------------------
 
 % 繼承類別選項（將未定義的傳給基礎文檔）
-% Option Declaration (pass tundefined options to father class)
+% Option Declaration (pass undefined options to father class)
 \DeclareDefaultOption{
   \PassOptionsToClass{\CurrentOption}{report}
 }
@@ -397,8 +392,6 @@
   \newcommand{\ntu@verificationletter}{\ntu@verificationletter@zh}
   \newcommand{\ntu@bibliography}{\ntu@bibliography@zh}
   \newcommand{\ntu@appendix}{\ntu@appendix@zh}
-  \newcommand{\ntu@figurename}{\ntu@figurename@zh}
-  \newcommand{\ntu@tablename}{\ntu@tablename@zh}
 
   % 設定單位
   \newcommand{\ntu@tocsecindent}{\ntu@tocsecindent@zh}
@@ -419,11 +412,9 @@
   \newcommand{\ntu@listoffigures}{\ntu@listoffigures@en}
   \newcommand{\ntu@listoftables}{\ntu@listoftables@en}
   \newcommand{\ntu@denotation}{\ntu@denotation@en}
-  \newcommand{\ntu@verificationletter}{\ntu@verificationletter@en}
+  \newcommand{\ntu@verificationletter}{\ntu@verificationletter@zh}
   \newcommand{\ntu@bibliography}{\ntu@bibliography@en}
   \newcommand{\ntu@appendix}{\ntu@appendix@en}
-  \newcommand{\ntu@figurename}{\ntu@figurename@en}
-  \newcommand{\ntu@tablename}{\ntu@tablename@en}
 
   % 設定單位
   \newcommand{\ntu@tocsecindent}{\ntu@tocsecindent@en}
@@ -479,8 +470,8 @@
 \RequirePackage{fancyhdr}
 \RequirePackage{setspace}
 \RequirePackage{graphicx}
-\RequirePackage{eso-pic}
 \RequirePackage{tikz}
+\RequirePackage{eso-pic}
 \RequirePackage{pdfpages}
 \RequirePackage{tabularx}
 \RequirePackage{booktabs}
@@ -495,14 +486,11 @@
 \RequirePackage{paralist}
 \RequirePackage{footmisc}
 \RequirePackage{caption}
-\RequirePackage[labelformat=simple]{subcaption}
+\RequirePackage{subcaption}
 
 % --------------------------------------------------
 % 10 套件設定 (Package Settings)
 % --------------------------------------------------
-
-% [圖表目錄]
-\graphicspath{{./figures/}}
 
 % [文章排版]
 %
@@ -570,12 +558,12 @@
 % [連結設定]
 %
 \hypersetup{
-  colorlinks=true,
+  colorlinks,
   linkcolor=black,
-  filecolor=gray,
   anchorcolor=blue,
-  citecolor=blue
+  citecolor=green
 }
+
 
 % [目錄格式]
 %
@@ -587,11 +575,12 @@
 
 % \titlecontents{標題名稱}[左間距]{標題格式}{標題內容}{無序號標題}{指引線與頁碼}[下間距]
 \titlecontents{chapter}[0em]                                % 修改目錄樣式
-{\addvspace{0.5em}\normalsize\bfseries\protect}
+{\addvspace{0.5em}\normalsize\protect}
 {\fboxrule=0pt\fboxsep=0pt\framebox[\ntu@tocchaptersize][l]{\ntu@titlechaptertoc}}
 {}
-{\hfill\contentspage}
+{\cftdotfill{\cftdotsep}{\contentspage}}
 
+% \setlength{\cftbeforetoctitleskip}{-3em}
 \setlength{\cftbeforesecskip}{8pt}                          % 修改目錄間距
 \setlength{\cftbeforesubsecskip}{8pt}
 
@@ -622,6 +611,9 @@
 {1em}                                       % 定義 sep
 {}                                          % before
 
+\titlespacing*{name=\chapter,numberless}{0pt}{-45pt}{20pt}
+
+
 % [圖表標題]
 %
 \setlength{\intextsep}{12bp \@plus4pt \@minus2pt}
@@ -630,18 +622,9 @@
 \captionsetup[figure]{position=bottom,belowskip={12bp-\intextsep},aboveskip=6bp}
 \captionsetup[sub]{skip=6bp}
 
-% [引用格式]
-%
-\renewcommand\thesubfigure{~(\alph{subfigure})}
-
 % --------------------------------------------------
 % 08 自訂命令（Custom Commands）
 % --------------------------------------------------
-
-% [添加路徑]
-\newcommand\appendgraphicspath[1]{
-  \g@addto@macro\Ginput@path{#1}
-}
 
 % [中文縮進]
 % - \Eindent                    縮進
@@ -681,9 +664,9 @@
         \vfill
         \centering
         \begin{tikzpicture}[remember picture, overlay]
-          \coordinate (WM) at ([xshift=-4.325cm, yshift=-4.325cm] current page.north east);
+          \coordinate (WM) at ([xshift=-4.075cm, yshift=-4.075cm] current page.north east);
           \node [scale=1] at (WM) {\includegraphics[width=3.65cm, height=3.65cm]{#2}};
-          \filldraw [fill=white, opacity=1-\the\numexpr#1] (current page.north east) rectangle (current page.south west);
+          \filldraw [fill=white, opacity=0.5] (current page.north east) rectangle (current page.south west);
         \end{tikzpicture}
       \vfill
 }}}}
@@ -707,7 +690,7 @@
 %
 \newcommand{\makecover}{
   \ntu@setgeometry{\ntu@geometry@cover}
-
+  
   \begin{titlepage}
     \begin{singlespace}
       \begin{center}
@@ -737,7 +720,65 @@
         \ntu@author\par\ntu@author@en\par
         \vfill
         指導教授: \ntu@advisor~博士\par
-        Advisor: \ntu@advisor@en,~Ph.D.\par  % 英文姓名無須逗號，但職銜前需要逗號
+        Advisor: \ntu@advisor@en, Ph.D.\par
+        \vfill
+        中華民國~\ntu@format@date{\ntu@date@zh@digit@short}{\ntu@date}\par
+        \ntu@format@date{\ntu@date@en@short}{\ntu@date}
+      \end{center}
+    \end{singlespace}
+  \end{titlepage}
+
+  % 清除頁碼
+  \clearpage
+  \restoregeometry
+}
+
+% [生成內頁首頁]
+% Generate the cover page
+%
+\newcommand{\maketitlepage}{
+  \ntu@setgeometry{\ntu@geometry@cover}
+  
+  \begin{titlepage}
+
+    \ifthenelse{\equal{\ntu@doi}{true}}{\insertdoi{\ntu@DOI}}{}
+    \ifthenelse{\equal{\ntu@watermark}{true}}{
+        \begin{tikzpicture}[remember picture, overlay]
+          \coordinate (WM) at ([xshift=-4.075cm, yshift=-4.075cm] current page.north east);
+          \node [scale=1] at (WM) {\includegraphics[width=3.65cm, height=3.65cm]{figures/seal.pdf}};
+          \filldraw [fill=white, opacity=0.5] (current page.north east) rectangle (current page.south west);
+        \end{tikzpicture}
+    }{}
+    
+    \begin{singlespace}
+      \begin{center}
+        % 中文校系名稱 (18, 27)
+        \fontsize{18}{27}\selectfont
+        \ntu@university\ntu@college\ntu@institute\par
+        \ntu@degree\ntu@type\par
+
+        % 英文系所名稱 (14, 21)
+        \fontsize{14}{21}\selectfont
+        \ntu@institute@en\par
+        \ntu@college@en\par
+
+        % 英文學校名稱 (16, 24)
+        \fontsize{16}{24}\selectfont
+        \ntu@university@en\par
+        \ntu@degree@en~\ntu@type@en\par
+
+        % 中英文論文題目 (18, 27)
+        % 中英文作者姓名 (18, 27)
+        % 中英文指導教授 (18, 27)
+        % 論文撰寫日期   (18, 27)
+        \vfill
+        \fontsize{18}{27}\selectfont
+        \ntu@title\par\ntu@title@en\par
+        \vfill
+        \ntu@author\par\ntu@author@en\par
+        \vfill
+        指導教授: \ntu@advisor~博士\par
+        Advisor: \ntu@advisor@en, Ph.D.\par
         \vfill
         中華民國~\ntu@format@date{\ntu@date@zh@digit@short}{\ntu@date}\par
         \ntu@format@date{\ntu@date@en@short}{\ntu@date}
@@ -796,7 +837,6 @@
       \end{tabularx}
     \end{center}
   \end{doublespace}
-
   % 恢復預設板型
   \restoregeometry
 }
@@ -812,13 +852,11 @@
   \tableofcontents
 }
 
-\let\oldnumberline\numberline
 \renewcommand{\listfigurename}{\centerline{\ntu@listoffigures}}
 \newcommand{\makelistoffigures}{
   \cleardoublepage
   \phantomsection
   \addcontentsline{toc}{chapter}{\ntu@listoffigures}
-  \renewcommand{\numberline}{\figurename~\oldnumberline}
   \listoffigures
 }
 
@@ -827,7 +865,6 @@
   \cleardoublepage
   \phantomsection
   \addcontentsline{toc}{chapter}{\ntu@listoftables}
-  \renewcommand{\numberline}{\tablename~\oldnumberline}
   \listoftables
 }
 
@@ -835,6 +872,13 @@
 % \mainmatter
 %
 \newcommand{\mainmatter}{
+
+  \titleformat{\chapter}                      % 設置 Chapter 格式
+  {\Huge\bfseries}                  % 定義 format
+  {\ntu@titlechapter}              		    % 定義 label
+  {1em}                                       % 定義 sep
+  {}                                          % before
+
   \cleardoublepage
   \ntu@setgeometry{\ntu@geometry@main}
   \pagenumbering{arabic}
@@ -925,18 +969,18 @@
 % 根據設定決定是否添加浮水印
 % Insert watermark according to the config.
 %
-\ifthenelse{\equal{\ntu@watermark}{true}}{\makewatermark{0.25}{seal}}{}
+\ifthenelse{\equal{\ntu@watermark}{true}}{\makewatermark{0.25}{figures/seal.pdf}}{}
 
 % 根據設定決定是否添加數位標識
 % Insert DOI according to the config.
 %
-\ifthenelse{\equal{\ntu@doi}{true}}{\insertdoi{\ntu@DOI}}{}
+% \ifthenelse{\equal{\ntu@doi}{true}}{\insertdoi{\ntu@DOI}}{}
 
 % 設定行距
 % 1.2：1.5 倍行距
 % 1.6：2.0 倍行距
 \setstretch{1.6}
 
-% 套用翻譯
-\renewcommand{\figurename}{\ntu@figurename}
-\renewcommand{\tablename}{\ntu@tablename}
+% 中文化
+% \newcommand{\loflabel}{圖}
+% \newcommand{\lotlabel}{表}
